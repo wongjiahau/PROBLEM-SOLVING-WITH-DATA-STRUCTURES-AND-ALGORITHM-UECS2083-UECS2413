@@ -364,5 +364,48 @@ public class Test {
 }
 ```
 
- 
+### Question 7
+Given
+```java
+public class Vehicle {}
+
+public interface VehicleMethods {
+   public double getWeight();
+   public int getSpeed();
+}
+
+```
+(i)	Write an abstract class LandVehicle that inherits from the class Vehicle and implements the VehicleMethods interface.
+```java
+public abstract class LandVehicle extends Vehicle implements VehicleMethods {
+	// Empty body
+}
+```
+
+(ii)	Write a subclass Car that inherits from LandVehicle and implements the two methods declared in the interface VehicleMethods. Assume there are no other attributes and methods in both class declarations. The constructors can also be omitted.
+```java
+public class Car extends LandVehicle {
+	private double weight;
+    private double speed;
+    
+    public Car(double weight, double speed) {
+    	this.weight = weight;
+        this.speed = speed;
+    }
+    
+	public double getWeight() {
+    	return this.weight;
+    }
+    
+    public int getSpeed() {
+    	return this.speed;
+    }
+}
+```
+
+
+
+## Assessment
+This practical exercise will not be assessed. However, you are encouraged to finish all the exercises so that you can gain more familiarization and understanding on Java programming language.
+
 
