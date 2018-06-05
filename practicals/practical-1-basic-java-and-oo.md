@@ -385,10 +385,10 @@ public abstract class LandVehicle extends Vehicle implements VehicleMethods {
 (ii)	Write a subclass Car that inherits from LandVehicle and implements the two methods declared in the interface VehicleMethods. Assume there are no other attributes and methods in both class declarations. The constructors can also be omitted.
 ```java
 public class Car extends LandVehicle {
-	private double weight;
-    private double speed;
+    private double weight;
+    private int speed;
     
-    public Car(double weight, double speed) {
+    public Car(double weight, int speed) {
     	this.weight = weight;
         this.speed = speed;
     }
