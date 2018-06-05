@@ -19,6 +19,7 @@ You will need to know:
 10. abstract classes and interfaces
 
 ## Part 1: Discussion
+### Question 1
 Type all of the following code, save the program as specified.
 Compile the file. Why did it fail?
 
@@ -33,6 +34,7 @@ public class Testing1 {
 **Answer**: Should be `String[] args` not `String args`.
 
 <br>
+
 ```
 // saved as Test2.java
 public class Test2 {
@@ -41,4 +43,54 @@ public class Test2 {
    }
 }
 ```
-**Answer**: Should be `public static void`, not `public void`.
+**Answer**: 
+-	Should be `public static void`, not `public void`.
+-	Missing semicolon 
+
+### Question 2
+What problem arises in compiling the following program?
+
+```java
+class A {
+   public A(int x) {}
+}
+
+class B extends A {
+   public B() {}
+}
+```
+
+Answer: The constructor of `B` did not call the constructor of `A`. To call the constructor of super(aka parent) class, we need to use `super();`.
+
+
+### Question 3 
+Show the output of the following programs:
+
+```java
+// Program 1
+public class Test {
+   public static void main(String args[]) {
+      A a = new A(3);
+   }
+}
+
+class A extends B {
+   public A(int n) {
+      System.out.println("A’s constructor is invoked.");
+   }
+}
+
+class B {
+   public B() {
+      System.out.println("B’s constructor is invoked.");
+   }
+}
+```
+Output:
+```
+B’s constructor is invoked.
+A’s constructor is invoked.
+```
+Reference: [Why is constructor of super class invoked first?](https://stackoverflow.com/questions/7173019/why-is-constructor-of-super-class-invoked-when-we-declare-the-object-of-sub-clas)
+<hr>
+
