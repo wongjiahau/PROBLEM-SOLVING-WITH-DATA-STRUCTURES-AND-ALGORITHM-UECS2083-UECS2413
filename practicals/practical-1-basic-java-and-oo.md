@@ -309,7 +309,7 @@ From the base class Lecturer, create a subclass named PartTimeLecturer with the 
 	- The second constructor should take one parameter that populates the id attribute.
 	- The third constructor should take three parameters that populate the name, id and teachingHour attributes.
 -	Declare a mutator method named setTeachingHour( ) that sets a lecturer’s teaching hours.
--	Declare an accesor method named getTechingHour( ) that returns an lecturer’s teaching hours.
+-	Declare an accesor method named getTeachingHour( ) that returns an lecturer’s teaching hours.
 -	Declare an override method named toString( ) that returns a lecturer’s name, id and teachingHour.
 -	 Implement the abstract method named salary( ) declared in class Lecturer that returns the part time lecturer’s salary corresponding to the teaching hours. The salary can be determined using the formula:
 salary = teachingHour × 100.00;
@@ -319,17 +319,50 @@ public class PartTimeLecturer extends Lecturer {
 	private double teachingHour;
     public PartTimeLecturer() {
     	super(null, 0);
+        this.teachingHour = 0;
     }
     
     public PartTimeLecturer(int id) {
     	super(null, id);
+        this.teachingHour = 0;
     }
     
-    public PartTimeLecturer(
+    public PartTimeLecturer(String name, int id, double teachingHour) {
+    	super(name, id);
+        this.teachingHour = teachingHour;
+    }
+    
+    public void setTeachingHour(double newTeachingHour) {
+    	this.teachingHour = newTeachingHour;
+    }
+    
+    public double getTeachingHour() {
+    	return this.teachingHour;
+    }
+    
+    @Override
+    public String toString() {
+    	return "Name: " + super.getName() + "\n" +
+               "Id:   " + super.getId()   + "\n" +
+               "Teaching hour: " + this.teachingHour + "\n";
+    }
+    
+    public double salary() {
+    	return this.teachingHour * 100.00;
+    }
 }
 ```
 
 Write a client program to test both Lecturer and PartTimeLecturer classes.
+
+```java
+public class Test {
+	public static void main(String[] args){
+    	Lecturer john = new PartTimeLecturer("John", 999, 10);
+        System.out.println(john);
+    }
+}
+```
 
  
 
