@@ -221,3 +221,20 @@ public class Test {
 }
 ```
 
+## 14.	Write a recursive definition, public static void binaryPrint(int x) to print out the non-negative integer x as a binary number. For example, if the value of x were 19 then the binary output should be 10011.
+```java
+public class Test {
+	public static void main(String[] args) {
+		binaryOf(10); // Should display 25
+	}
+
+	public static int binaryOf (int n) {		
+		int divided = n / 2;
+		int remainder = n % 2;
+		binaryOf(divided);
+		if(divided > 0) {
+			System.out.println(remainder);
+		}		
+	}
+}
+```
