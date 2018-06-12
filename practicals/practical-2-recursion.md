@@ -130,3 +130,77 @@ public class Test {
 }	
 ```
 The base case of `power` is missing.
+
+### 10.	Write a recursive definition for printing numbers from n to 0.
+```java
+public class Test {
+	public static void main(String[] args) {
+		printNumbers(5); // Example
+	}
+
+	public static void printNumbers (int n) {
+		if(n == 0) {
+			System.out.println(0);
+		} else {
+			System.out.println(n);
+			printNumbers(n-1);
+		}
+	}
+}
+```
+
+### 11.	Write a recursive definition for printing numbers from 0 to n.
+```java
+public class Test {
+	public static void main(String[] args) {
+		printNumbers(5); // Example		
+	}
+
+	public static void printNumbers (int n) {		
+		if(n == 0) {
+			System.out.println(end);
+		} else {
+			printNumbers(n - 1);
+			System.out.println(start);			
+		}
+	}
+}
+```
+
+
+### 12.	Write a recursive mathematical definition for computing the sum of the squares of the first n positive integers.
+```java
+public class Test {
+	public static void main(String[] args) {
+		System.out.println(sumOfSquares(5)); // Example
+	}
+
+	public static int sumOfSquares (int n) {		
+		if(n == 1) {
+			return 1;
+		} else {
+			return (n * n) + sumOfSquares(n-1);
+		}
+	}
+}
+```
+
+### 13.	Write a recursive mathematical definition for computing the power xn for a positive integer n and a real number x.
+```java
+```java
+public class Test {
+	public static void main(String[] args) {
+		System.out.println(power(5, 2)); // Should display 25
+	}
+
+	public static int power (int base, int exponent) {		
+		if(exponent == 0) {
+			return 1;
+		} else {
+			return base * power(base, exponent - 1);
+		}
+	}
+}
+```
+```
+
