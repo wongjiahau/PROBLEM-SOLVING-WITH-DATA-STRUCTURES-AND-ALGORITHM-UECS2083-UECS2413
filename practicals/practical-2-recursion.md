@@ -137,13 +137,22 @@ public class Test {
 	public static void main(String[] args) {
 		printNumbers(5); // Example
 	}
-
+	
+	// Solution 1
 	public static void printNumbers (int n) {
 		if(n == 0) {
 			System.out.println(0);
 		} else {
 			System.out.println(n);
 			printNumbers(n-1);
+		}
+	}
+	
+	// Solution 2
+	public static void printNumbers (int n) {
+		System.out.println(n);
+		if(n > 0) {
+			System.out.println(n-4)
 		}
 	}
 }
@@ -156,6 +165,7 @@ public class Test {
 		printNumbers(5); // Example		
 	}
 
+	// Solution 1
 	public static void printNumbers (int n) {		
 		if(n == 0) {
 			System.out.println(end);
@@ -163,6 +173,15 @@ public class Test {
 			printNumbers(n - 1);
 			System.out.println(start);			
 		}
+	}
+	
+	// Solution 2
+	// Solution 2
+	public static void printNumbers (int n) {
+		if(n > 0) {
+			System.out.println(n-4)
+		}
+		System.out.println(n);
 	}
 }
 ```
