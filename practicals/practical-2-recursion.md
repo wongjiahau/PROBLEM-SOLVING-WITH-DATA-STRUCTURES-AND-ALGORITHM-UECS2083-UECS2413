@@ -98,3 +98,35 @@ public class Test {
 }
 ```
 Answer: Exponent is 81
+
+## 9. What is wrong in the following recursive solution? 
+```java
+public class Test {
+	public static void main(String[] args) {
+		System.out.println("Factorial = " + factorial(4.0));
+	}
+
+	public static long factorial(double n) {
+		if (n == 0)
+			return 1;
+		else
+			return n * factorial(n - 1);
+	}
+}
+```
+The return type of `factorial` should be `double` to prevent loss of precision.
+
+<hr>
+
+```java
+public class Test {
+	public static void main(String[] args) {
+		System.out.println("Exponent is " + power(3, 4));
+	}
+
+	public static long power (int base, int exponent) {
+		return base * power(base, exponent - 1);
+	}
+}	
+```
+The base case of `power` is missing.
