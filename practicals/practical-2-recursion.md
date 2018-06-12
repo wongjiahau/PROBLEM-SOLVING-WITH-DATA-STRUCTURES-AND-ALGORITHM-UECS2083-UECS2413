@@ -187,7 +187,6 @@ public class Test {
 
 ### 13.	Write a recursive mathematical definition for computing the power xn for a positive integer n and a real number x.
 ```java
-```java
 public class Test {
 	public static void main(String[] args) {
 		System.out.println(power(5, 2)); // Should display 25
@@ -201,6 +200,5 @@ public class Test {
 		}
 	}
 }
-```
 ```
 
