@@ -6,15 +6,23 @@ public class Main {
 		
 
 		String[] list1 = {"Tom", "George", "Peter", "Jean", "Jane"};
-		String [] list2 = {"Tom ", "George", "Michael", "Michelle", "Daniel"};
+		String [] list2 = {"Tom", "George", "Michael", "Michelle", "Daniel"};
 		MyList<String> x = new MyArrayList<String>(list1);
 		MyList<String> y = new MyArrayList<String>(list2);
-		System.out.println(x.toString());
-		System.out.println(y.toString());
+		
+		System.out.println("Initial elements of x = " + x.toString());
+		System.out.println("Initial elements of y = " + y.toString());
 		
 		
 		x.removeAll(y);
-		System.out.println(x.toString());
+		System.out.println("Elements of x after x.removeAll(y) = " + x.toString());
+		
+		x.retainAll(y);
+		System.out.println("Elements of x after x.retainAll(y) = " + x.toString());
+		
+		x.addAll(y);
+		System.out.println("Elements of x after x.addAll(y) = " + x.toString());
+		
 		
 
 	}
@@ -69,6 +77,8 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 		while(it.hasNext()) {
 			T value = it.next();
 			if(this.indexOf(value) > -1) {
+				// If the element already existed, no need to add it in 
+			} else {
 				this.add(value);
 				result = true;
 			}
@@ -85,7 +95,6 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 
 	private int indexOf(T value) {
 		for(int i = 0; i <= this.currentIndex; i++) {
-			// System.out.println(this.elements[i]);
 			if(((Comparable)this.elements[i]).compareTo(value) == 0) {
 				return i;
 			}
@@ -172,7 +181,7 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 		while(it.hasNext()) {
 			result += it.next().toString() + ", ";
 		}
-		result += " ]";
+		result += "]";
 		return result;
 	}
 }
