@@ -14,14 +14,16 @@ public class Main {
 		System.out.println("Initial elements of y = " + y.toString());
 		
 		
+		x.addAll(y);
+		System.out.println("Elements of x after x.addAll(y) = " + x.toString());
+		
 		x.removeAll(y);
 		System.out.println("Elements of x after x.removeAll(y) = " + x.toString());
+
 		
 		x.retainAll(y);
 		System.out.println("Elements of x after x.retainAll(y) = " + x.toString());
-		
-		x.addAll(y);
-		System.out.println("Elements of x after x.addAll(y) = " + x.toString());
+
 		
 		
 
@@ -55,7 +57,7 @@ abstract class MyAbstractList<T> implements MyList<T> { /*empty body*/ }
 class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 	private static final int DEFAULT_CAPACITY = 10;
 	private Object[] elements = new Object[DEFAULT_CAPACITY];
-	private int currentIndex = -1;
+	private int currentLength = -1;
 	public MyArrayList(T[] initialElements) {
 		for(int i = 0; i < initialElements.length; i++) {
 			this.add(initialElements[i]);
@@ -63,7 +65,7 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 	}
 	
 	private void tuneCapacity() {
-		if(this.currentIndex == this.elements.length - 1) {
+		if(this.currentLength == this.elements.length - 1) {
 			  this.elements = Arrays.copyOf(elements, this.elements.length * 2);
 		} else {
 			// no need to do anything
@@ -88,13 +90,13 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 
 	private void add(T value) {
 		this.tuneCapacity();
-		int nextIndex = this.currentIndex + 1;
+		int nextIndex = this.currentLength + 1;
 		this.elements[nextIndex] = value;
-		this.currentIndex++;
+		this.currentLength++;
 	}
 
 	private int indexOf(T value) {
-		for(int i = 0; i <= this.currentIndex; i++) {
+		for(int i = 0; i <= this.currentLength; i++) {
 			if(((Comparable)this.elements[i]).compareTo(value) == 0) {
 				return i;
 			}
@@ -104,15 +106,17 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 
 	@Override
 	public boolean removeAll(MyList<T> otherList) {
+		boolean changed = false;
 		Iterator<T> it = otherList.iterator();
 		while(it.hasNext()) {
 			T value = it.next();
 			int matchingIndex = this.indexOf(value);
 			if(matchingIndex > -1) {
+				changed = true;
 				this.removeAt(matchingIndex);
 			}
 		}
-		return false;
+		return changed;
 	}
 
 	private void removeAt(int index) {
@@ -125,23 +129,23 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 				 this.elements, index, 
 				 this.elements.length - 1 - index
 		 );
-		 this.currentIndex --;
+		 this.currentLength --;
 	}
 
 	@Override
 	public boolean retainAll(MyList<T> otherList) {
-		Iterator<T> it = otherList.iterator();
-		while(it.hasNext()) {
-			T value = it.next();
-			int matchingIndex = this.indexOf(value);
-			if(matchingIndex > -1) {
-				// retain the element
-				// in this case it means to do nothing
-			} else {
-				this.removeAt(matchingIndex);
-			}
-		}
 		return false;
+		/**
+		 * Not implemented yet
+		 * */
+	}
+	
+	public T at(int index) {
+		return (T)this.elements[index];
+	}
+	
+	public int length() {
+		return this.elements.length;
 	}
 
 	@Override
