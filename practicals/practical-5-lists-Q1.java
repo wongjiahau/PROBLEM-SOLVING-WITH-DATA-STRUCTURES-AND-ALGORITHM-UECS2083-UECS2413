@@ -34,6 +34,12 @@ abstract class MyAbstractList<T> implements MyList<T> { /*empty body*/ }
 class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 	private static final int DEFAULT_CAPACITY = 10;
 	private Object[] elements = new Object[DEFAULT_CAPACITY];
+	public MyArrayList(T[] elements) {
+		for(int i = 0; i < elements.length; i++) {
+			tuneCapacity();
+			this.add(elements[i]);
+		}
+	}
 	
 	private void tuneCapacity() {
 		if(this.elements.length == DEFAULT_CAPACITY) {
@@ -49,7 +55,7 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 		Iterator<T> it = otherList.iterator();
 		while(it.hasNext()) {
 			T value = it.next();
-			if(this.contains(value)) {
+			if(this.indexOf(value) > -1) {
 				this.add(value);
 				result = true;
 			}
@@ -63,13 +69,13 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 		this.elements[nextIndex] = value;
 	}
 
-	private boolean contains(T value) {
+	private int indexOf(T value) {
 		for(int i = 0; i < this.elements.length; i++) {
 			if(((Comparable)this.elements[i]).compareTo(value) == 0) {
-				return true;
+				return i;
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	@Override
@@ -77,22 +83,39 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 		Iterator<T> it = otherList.iterator();
 		while(it.hasNext()) {
 			T value = it.next();
-			if(this.contains(value)) {
-				this.remove(value);
+			int matchingIndex = this.indexOf(value);
+			if(matchingIndex > -1) {
+				this.removeAt(matchingIndex);
 			}
 		}
 		return false;
 	}
 
-	private void remove(T value) {
-		for(int i = 0; i < this.elements.length; i++) {
-			
-		}
+	private void removeAt(int index) {
+		/**
+		 * The following code is copied from 
+		 * https://stackoverflow.com/questions/642897/removing-an-element-from-an-array-java
+		 * */
+		 System.arraycopy(
+				 this.elements, index + 1, 
+				 this.elements, index, 
+				 this.elements.length - 1 - index
+		 );
 	}
 
 	@Override
 	public boolean retainAll(MyList<T> otherList) {
-		// TODO Auto-generated method stub
+		Iterator<T> it = otherList.iterator();
+		while(it.hasNext()) {
+			T value = it.next();
+			int matchingIndex = this.indexOf(value);
+			if(matchingIndex > -1) {
+				// retain the element
+				// in this case it means to do nothing
+			} else {
+				this.removeAt(matchingIndex);
+			}
+		}
 		return false;
 	}
 
