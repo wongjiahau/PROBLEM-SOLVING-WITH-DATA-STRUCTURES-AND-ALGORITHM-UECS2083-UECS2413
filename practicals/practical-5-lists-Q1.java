@@ -3,7 +3,20 @@ import java.util.Iterator;
 
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("Hello");
+		
+
+		String[] list1 = {"Tom", "George", "Peter", "Jean", "Jane"};
+		String [] list2 = {"Tom ", "George", "Michael", "Michelle", "Daniel"};
+		MyList<String> x = new MyArrayList<String>(list1);
+		MyList<String> y = new MyArrayList<String>(list2);
+		System.out.println(x.toString());
+		System.out.println(y.toString());
+		
+		
+		x.removeAll(y);
+		System.out.println(x.toString());
+		
+
 	}
 }
 
@@ -34,16 +47,16 @@ abstract class MyAbstractList<T> implements MyList<T> { /*empty body*/ }
 class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 	private static final int DEFAULT_CAPACITY = 10;
 	private Object[] elements = new Object[DEFAULT_CAPACITY];
-	public MyArrayList(T[] elements) {
-		for(int i = 0; i < elements.length; i++) {
-			tuneCapacity();
-			this.add(elements[i]);
+	private int currentIndex = -1;
+	public MyArrayList(T[] initialElements) {
+		for(int i = 0; i < initialElements.length; i++) {
+			this.add(initialElements[i]);
 		}
 	}
 	
 	private void tuneCapacity() {
-		if(this.elements.length == DEFAULT_CAPACITY) {
-			  this.elements = Arrays.copyOf(elements, DEFAULT_CAPACITY * 2);
+		if(this.currentIndex == this.elements.length - 1) {
+			  this.elements = Arrays.copyOf(elements, this.elements.length * 2);
 		} else {
 			// no need to do anything
 		}
@@ -65,12 +78,14 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 
 	private void add(T value) {
 		this.tuneCapacity();
-		int nextIndex = this.elements.length;
+		int nextIndex = this.currentIndex + 1;
 		this.elements[nextIndex] = value;
+		this.currentIndex++;
 	}
 
 	private int indexOf(T value) {
-		for(int i = 0; i < this.elements.length; i++) {
+		for(int i = 0; i <= this.currentIndex; i++) {
+			// System.out.println(this.elements[i]);
 			if(((Comparable)this.elements[i]).compareTo(value) == 0) {
 				return i;
 			}
@@ -101,6 +116,7 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 				 this.elements, index, 
 				 this.elements.length - 1 - index
 		 );
+		 this.currentIndex --;
 	}
 
 	@Override
@@ -121,10 +137,44 @@ class MyArrayList<T extends Comparable<T>> extends MyAbstractList<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		/**
+		 * The following code is copied from
+		 * https://stackoverflow.com/questions/5849154/can-we-write-our-own-iterator-in-java
+		 * */
+        Iterator<T> it = new Iterator<T>() {
 
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < elements.length && elements[index] != null;
+            }
+
+            @Override
+            public T next() {
+            	T value = (T)elements[index++];
+            	// Remember we need to to casting, because the type of elements is Object[], not T[]
+                return value;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
+        return it;
+	}
+	
+	@Override
+	public String toString() {
+		String result = "[ ";
+		Iterator<T> it = this.iterator();
+		while(it.hasNext()) {
+			result += it.next().toString() + ", ";
+		}
+		result += " ]";
+		return result;
+	}
 }
 
 
